@@ -32,9 +32,9 @@ RUN qmake -r
 RUN make
 
 RUN cp ./openjabnab.ini-dist ./bin/openjabnab.ini
-RUN sed -i -e"s/^StandAloneAuthBypass = false/StandAloneAuthBypass=true/" ./bin/openjabnab.ini
-RUN sed -i -e"s/^AllowUserManageBunny=false/AllowUserManageBunny=true/" ./bin/openjabnab.ini
-RUN sed -i -e"s/^AllowUserManageBunny=false/AllowUserManageBunny=true/" ./bin/openjabnab.ini
+RUN sed -i -e"s/^StandAloneAuthBypass = false/StandAloneAuthBypass=true/" ./bin/openjabnab.ini \
+ && sed -i -e"s/^AllowUserManageBunny=false/AllowUserManageBunny=true/" ./bin/openjabnab.ini \
+ && sed -i -e"s/^AllowUserManageBunny=false/AllowUserManageBunny=true/" ./bin/openjabnab.ini 
 
 ENV APP_ROOTURL localhost
 ENV APACHE_RUN_USER www-data
@@ -49,7 +49,7 @@ EXPOSE 80 80
 
 ADD plugin_auth.ini ./bin/plugin_auth.ini
 ADD apache-config.conf /etc/apache2/sites-enabled/000-default.conf
-RUN chmod 777 ../http-wrapper/ojn_admin/include
-
+RUN chmod -R 777 ../http-wrapper
+ 
 COPY start.sh /usr/local/bin/
 CMD ["start.sh"]
