@@ -3,3 +3,4 @@
 
 on docker : https://hub.docker.com/r/antoineaumjaud/docker-openjabnab/
 
++ change [OpenJabNabServers] /var/www/OpenJabNab/server/bin with your domain
