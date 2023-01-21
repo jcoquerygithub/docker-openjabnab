@@ -27,9 +27,10 @@ RUN qmake -r
 RUN make
 
 RUN cp ./openjabnab.ini-dist ./bin/openjabnab.ini
-RUN sed -i -e"s/^StandAloneAuthBypass = false/StandAloneAuthBypass=true/" ./bin/openjabnab.ini \
+RUN sed -i -e"s/^StandAloneAuthBypass=false/StandAloneAuthBypass=true/" ./bin/openjabnab.ini \
  && sed -i -e"s/^AllowUserManageBunny=false/AllowUserManageBunny=true/" ./bin/openjabnab.ini \
- && sed -i -e"s/^AllowUserManageZtamp=false/AllowUserManageZtamp=true/" ./bin/openjabnab.ini 
+ && sed -i -e"s/^AllowUserManageZtamp=false/AllowUserManageZtamp=true/" ./bin/openjabnab.ini \
+ && sed -i -e"s/^AllowAnonymousRegistration/AllowAnonymousRegistration=true/" ./bin/openjabnab.ini
 
 ENV APP_ROOTURL localhost
 ENV APACHE_RUN_USER www-data
