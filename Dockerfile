@@ -1,6 +1,4 @@
-FROM debian:jessie
-
-MAINTAINER Antoine Aumjaud <antoine_dev@aumjaud.fr>
+FROM php:5.6-apache
 
 RUN apt-get update && apt-get install -y \
 	ca-certificates \
@@ -10,14 +8,11 @@ RUN apt-get update && apt-get install -y \
 	qt4-qmake \
 	qt4-default \
 	build-essential \
-	g++ \
-	apache2 \
-	libapache2-mod-php5 \
-	php5-gd \ 
-	php5-mcrypt \
-	php5-curl\
-	--no-install-recommends \
-	&& rm -rf /var/lib/apt/lists/*
+	g++
+
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+RUN chmod +x /usr/local/bin/install-php-extensions && \
+    install-php-extensions gd
 
 RUN a2enmod php5
 RUN a2enmod rewrite
@@ -25,7 +20,7 @@ RUN a2enmod rewrite
 CMD mkdir /var/www
 WORKDIR /var/www
 
-RUN git clone --depth 1 https://github.com/OpenJabNab/OpenJabNab.git
+RUN git clone --depth 1 https://github.com/jcoquerygithub/OpenJabNab.git
 WORKDIR OpenJabNab/server
 
 RUN qmake -r
